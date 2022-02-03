@@ -3,3 +3,7 @@ id_rsa.pub
 output_debug_ubuntu
 output_ubuntu
 packer/http/user-data
+.terraform.lock.hcl
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
