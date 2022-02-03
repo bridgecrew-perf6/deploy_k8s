@@ -27,3 +27,15 @@ Study:
 1. Packer + Ansible build image
 2. Terraform creates virtual machines
 3. Ansible deploy Kubernetes machines
+
+## Build environment
+1. Download repository.
+2. Initialize terraform environment.
+3. Run script.
+
+```bash
+git clone git@github.com:sauinana/deploy_k8s.git
+cd deploy_k8s
+terraform init
+./start.sh
+```
