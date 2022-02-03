@@ -39,7 +39,6 @@ resource "libvirt_network" "kube_network" {
   addresses = ["10.17.3.0/24"]
   dns {
     enabled = true
-#￼   local_only = true
   }
 
   dnsmasq_options {
