@@ -1,0 +1,10 @@
+---
+
+- name: Check worker stat
+  stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: k8s_stat
+
+- name: join cluster
+  import_tasks: join_cluster.yml
+  when: not k8s_stat.stat.exists

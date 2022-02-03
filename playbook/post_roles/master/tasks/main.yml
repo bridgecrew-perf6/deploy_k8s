@@ -1,0 +1,27 @@
+---
+- name: Kubernetes admin.conf state
+  stat:
+    path: /etc/kubernetes/admin.conf
+  register: k8s_stat
+- name: initial master
+  command: /usr/bin/kubeadm init
+  when: not k8s_stat.stat.exists
+
+- name: Check kubectl environment
+  stat:
+    path: /root/.kube/config
+  register: kubectl_config
+- name: Configure kubectl environment
+  command: '{{ item }}'
+  with_items:
+  - 'mkdir -p /root/.kube'
+  - 'cp -i /etc/kubernetes/admin.conf /root/.kube/config'
+  - 'chown root.root /root/.kube/config'
+  when: not kubectl_config.stat.exists
+- name: Check kuberenetes CNI config directory
+  stat:
+    path: /etc/cni/net.d
+  register: cni_directory
+- name: Configure Kuberentes CNI
+  import_tasks: cni.yml
+  when: not cni_directory.stat.exists

@@ -1,0 +1,17 @@
+---
+- name: Get disk info
+  set_fact:
+    disk_size: "{{ (mount.size_total / 1024 / 1024 / 1024) | int }}"
+  vars:
+      mount: "{{ ansible_mounts | selectattr('mount','equalto','/') | list | first }}"
+
+- name: Extend root disk
+  command: '{{ item }}'
+  when: disk_size | int < 10
+  with_items:
+  - 'growpart /dev/sda 2'
+  - 'resize2fs /dev/sda2'
+
+- name: Set hostname
+  hostname:
+    name: '{{ k8s_hostname }}'

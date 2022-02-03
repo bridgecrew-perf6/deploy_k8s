@@ -1,0 +1,11 @@
+---
+#- name: Confirm CNI configuration directory
+#  file:
+#    path: /etc/cni/net.d
+#    state: directory
+#- name: Confirm portmap CNI plugin configuration
+#  copy:
+#    src: 11-portmap.conflist
+#    dest: /etc/cni/net.d/11-portmap.conflist
+- name: set cni
+  shell: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"

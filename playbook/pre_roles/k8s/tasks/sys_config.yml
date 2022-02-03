@@ -1,0 +1,11 @@
+---
+
+- name: add system module
+  copy:
+    src: k8s.module
+    dest: /etc/modules-load.d/k8s.conf
+
+- name: add system control
+  copy:
+    src: k8s.sysctl
+    dest: /etc/sysctl.d/99-kubernetes-cri.conf

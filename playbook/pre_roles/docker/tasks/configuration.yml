@@ -1,0 +1,5 @@
+---
+- name: configure docker use systemd
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json

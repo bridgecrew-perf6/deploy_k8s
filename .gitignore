@@ -1,0 +1,5 @@
+id_rsa
+id_rsa.pub
+output_debug_ubuntu
+output_ubuntu
+packer/http/user-data

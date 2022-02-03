@@ -1,0 +1,21 @@
+---
+- name: Get Kubernetes token
+  shell: "kubeadm token list | awk '{print $1}' | grep -v TOKEN"
+  register: k8s_token
+  delegate_to: 10.17.3.3
+
+- name: Echo token
+  debug:
+    var: k8s_token.stdout
+
+- name: Get Kubernetes CA certificate sha256 hash
+  shell: openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
+  register: k8s_hash
+  delegate_to: 10.17.3.3
+
+- name: Echo token
+  debug:
+    var: k8s_hash.stdout
+
+- name: Join Kuberentes cluster
+  command: "kubeadm join 10.17.3.3:6443 --token {{ k8s_token.stdout }} --discovery-token-ca-cert-hash sha256:{{ k8s_hash.stdout }}"

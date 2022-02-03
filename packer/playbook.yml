@@ -1,0 +1,13 @@
+---
+# playbook.yml
+# - name: 'Provision Image'
+#   hosts: all
+#   become: true
+- hosts: all
+  roles:
+    - role: '../playbook/pre_roles/common'
+      become: yes
+    - role: '../playbook/pre_roles/docker'
+      become: yes
+    - role: '../playbook/pre_roles/k8s'
+      become: yes

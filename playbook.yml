@@ -1,0 +1,18 @@
+---
+# playbook.yml
+# - name: 'Provision Image'
+#   hosts: all
+#   become: true
+- hosts: all
+  roles:
+    - role: 'playbook/post_roles/common'
+      become: yes
+
+- hosts: master
+  roles:
+    - role: 'playbook/post_roles/master'
+      become: yes
+- hosts: worker
+  roles:
+    - role: 'playbook/post_roles/worker'
+      become: yes

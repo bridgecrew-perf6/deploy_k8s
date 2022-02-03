@@ -1,0 +1,33 @@
+---
+
+- name: install dependency packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ca-certificates
+    - curl
+    - gnupg
+    - lsb-release
+
+- name: add docker.io key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+    keyring: /usr/share/keyrings/docker-archive-keyring.gpg
+- name: add docker.io repository
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu focal stable
+    state: present
+    filename: docker
+
+- name: add docker packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+- name: configure docker
+  import_tasks: configuration.yml
