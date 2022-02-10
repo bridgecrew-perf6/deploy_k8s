@@ -39,8 +39,14 @@ cd deploy_k8s
 terraform init
 ./start.sh
 ```
+
+## Destroy environment
+```bash
+terraform destroy
+```
 ## Use
 1. How to login guests?
+
 use the generated key id_rsa to login
 ```bash
 ssh vagrant@10.17.3.3 -i id_rsa
@@ -50,6 +56,7 @@ user name: vagrant
 password: vagrant
 
 2. How to use Kubernetes?
+
 copy kubernetes configuration files to local `$HOME/.kube/config`
 ```text
 copy kubernetes master's /etc/kubernetes/admin.conf to local $HOME/.kube/config
